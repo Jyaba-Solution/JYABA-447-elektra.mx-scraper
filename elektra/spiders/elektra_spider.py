@@ -88,17 +88,27 @@ class ElektraSpider(scrapy.spiders.SitemapSpider):
         item['Item Characteristics'] = json_file.get('description')
         item['URL SKU'] = response.url
         item['Image'] = json_file.get('image')
-        item['Sale Price'] = json_file.get('offers',{}).get('price')
-        item['Price'] = re.findall('"lowPrice":(.*?),',response.text)[0] if re.findall('"lowPrice":(.*?),', response.text) else ''
+        prices = re.findall('"lowPrice":(.*?),', response.text)
+        if prices:
+            all_prices = list(set([int(x) for x in prices]))
+            if len(all_prices) == 1:
+                price = all_prices[0]
+                sale_price = ''
+            else:
+                sale_price = min(all_prices)
+                price = max(all_prices)
 
+
+        item['Price'] = price
+        item['Sales Price'] = sale_price
         item['Shipment Cost'] = ''
-        item['Sales Flag'] = ''
+        item['Sales Flag'] = response.xpath("//span[contains(@class,'savingsPercentage')]/text()").extract_first()
         item['Store ID'] = ''
         item['Store Name'] = ''
         item['Store Address'] = ''
         item['Stock'] = json_file.get('offers',{}).get('offers',{})[0].get('availability') if json_file.get('offers',{}).get('offers',{})[0].get('availability') else ''
         item['UPC WM'] = item['UPC'][0:-1].zfill(16)
-        item['Final Price'] = ''
+        item['Final Price'] = min(all_prices)
         yield item
 
         
