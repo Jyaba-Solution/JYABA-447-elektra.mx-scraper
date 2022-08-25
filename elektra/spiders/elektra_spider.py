@@ -3,56 +3,6 @@ import datetime
 import json
 import re
 
-'''
-Date == Script run date  (DD/MM/YYYY) 
-
-Canal == “Sanborns” 
-
-Category == category 
-
-Subcategory = Subcategory 
-
-Subcategory2= Subcategory2 
-
-Subcategory3=  BLANK 
-
-Marca == Brand 
-
-Modelo == Model 
-
-SKU ==SKU 
-
-UPC == UPC 
-
-Item == Item 
-
-Item Characteristics == Item Characteristics 
-
-URL SKU == URL 
-
-Image == image 
-
-Price == Price 
-
-Sale Price == Sale Price 
-
-Shipment Cost == BLANK 
-
-Sales Flag == Sales Flag 
-
-Store ID == BLANK 
-
-Store Name = BLANK 
-
-Store Address = BLANK 
-
-Stock == Stock 
-
-UPC WM == UPC[0:-1].zifll(16) 
-
-Final Price == min (price, sale price). 
-'''
-
 
 
 
