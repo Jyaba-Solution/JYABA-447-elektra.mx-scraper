@@ -40,7 +40,7 @@ class ElektraSpider(scrapy.spiders.SitemapSpider):
         item['Image'] = json_file.get('image')
         prices = re.findall('"lowPrice":(.*?),', response.text)
         if prices:
-            all_prices = list(set([int(x) for x in prices]))
+            all_prices = list(set([float(x) for x in prices]))
             if len(all_prices) == 1:
                 price = all_prices[0]
                 sale_price = ''
