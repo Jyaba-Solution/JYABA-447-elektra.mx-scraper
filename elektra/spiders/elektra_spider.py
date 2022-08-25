@@ -88,8 +88,9 @@ class ElektraSpider(scrapy.spiders.SitemapSpider):
         item['Item Characteristics'] = json_file.get('description')
         item['URL SKU'] = response.url
         item['Image'] = json_file.get('image')
-        item['Price'] = json_file.get('offers',{}).get('price')
         item['Sale Price'] = json_file.get('offers',{}).get('price')
+        item['Price'] = re.findall('"lowPrice":(.*?),',response.text)[0] if re.findall('"lowPrice":(.*?),', response.text) else ''
+
         item['Shipment Cost'] = ''
         item['Sales Flag'] = ''
         item['Store ID'] = ''
